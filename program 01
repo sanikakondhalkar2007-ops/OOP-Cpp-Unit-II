@@ -1,0 +1,50 @@
+#include <iostream>     // Includes input and output functions
+#include <string>       // Includes the string data type
+#include <utility>      // Includes the move() function
+
+using namespace std;    // Allows us to use standard library names directly
+
+// Base class
+class Person {
+protected:
+    string name;         // Stores the name of the person
+
+public:
+    // Parameterized constructor of Person class
+    explicit Person(string personName) : name(move(personName)) {}
+
+    // Function to display the person's name
+    void displayName() const {
+        cout << "Name: " << name << '\n';
+    }
+};
+
+// Derived class Student inherits publicly from Person
+class Student : public Person {
+private:
+    int rollNumber;      // Stores the student's roll number
+
+public:
+    // Parameterized constructor of Student class
+    Student(string studentName, int roll)
+        : Person(move(studentName)), rollNumber(roll) {}
+
+    // Function to display student information
+    void displayStudent() const {
+        displayName();  // Calls the base class function
+        cout << "Roll Number: " << rollNumber << '\n';
+    }
+};
+
+// Main function - execution of the program starts here
+int main() {
+
+    // Creates a Student object with name "Amit" and roll number 101
+    Student student("Amit", 101);
+
+    // Calls the function to display student information
+    student.displayStudent();
+
+    // Indicates that the program ended successfully
+    return 0;
+}
